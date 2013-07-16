@@ -387,6 +387,10 @@ func (d *Diskv) pathFor(key string) string {
 	)
 }
 
+func (d *Diskv) PathFor(key string) string {
+	return d.pathFor(key)
+}
+
 // ensureDir is a helper function that generates all necessary directories on
 // the filesystem for the given key.
 func (d *Diskv) ensurePath(key string) error {
