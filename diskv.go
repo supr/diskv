@@ -387,10 +387,6 @@ func (d *Diskv) pathFor(key string) string {
 	)
 }
 
-func (d *Diskv) PathFor(key string) string {
-	return d.pathFor(key)
-}
-
 // ensureDir is a helper function that generates all necessary directories on
 // the filesystem for the given key.
 func (d *Diskv) ensurePath(key string) error {
@@ -400,6 +396,11 @@ func (d *Diskv) ensurePath(key string) error {
 // completeFilename returns the absolute path to the file for the given key.
 func (d *Diskv) completeFilename(key string) string {
 	return fmt.Sprintf("%s%c%s", d.pathFor(key), os.PathSeparator, key)
+}
+
+// File returns the file object associated with the key on success.
+func (d *Diskv) File(key string) (*os.File, error) {
+	return os.Open(d.completeFilename(key))
 }
 
 // cacheWithLock attempts to cache the given key-value pair in the store's
